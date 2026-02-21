@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart';
+import 'package:todo_app/features/splash_screen/presentation/ui_screens/splach_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,12 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: RegisterScreen(),
+      home: SplashScreen(),
     );
   }
 }
+
+
+
+// add icon
+// add splash screen
