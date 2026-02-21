@@ -4,16 +4,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_app/core/responsive/responive_extention.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/features/auth/presentation/components/custom_text_field.dart';
-import 'package:todo_app/features/auth/presentation/ui_screens/login_screen.dart';
+import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart' show CustomButton, RegisterScreen;
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+   LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _fullNameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,7 @@ class RegisterScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
           children: [
-            SizedBox(height: 90),
+            SizedBox(height: 90.h),
             SvgPicture.asset('assets/images/Logo.svg'),
             SizedBox(height: 12),
 
@@ -60,31 +63,21 @@ class RegisterScreen extends StatelessWidget {
               hint: "email".tr(),
               controller: _emailController,
             ),
-            SizedBox(height: 12),
+            SizedBox(height: 12.h),
 
-            CustomTextFormField(
-              hint: "full_name".tr(),
-              controller: _fullNameController,
-            ),
-            SizedBox(height: 12),
 
             CustomTextFormField(
               hint: "password".tr(),
               controller: _passwordController,
               showPassord: true,
             ),
-            SizedBox(height: 12),
 
-            CustomTextFormField(
-              hint: "confirm_password".tr(),
-              controller: _confirmPasswordController,
-              showPassord: true,
-            ),
+
 
             SizedBox(height: 10.h),
             CustomButton(
               onTap: () {},
-              title: 'sign_up'.tr(),
+              title: 'sign_in'.tr(),
               buttonBackgroundColor: AppColors.pinkRed,
               testColor: AppColors.textWhite,
             ),
@@ -94,73 +87,23 @@ class RegisterScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'have_account'.tr(),
+                  'dont_have_account'.tr(),
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16.sp,
                     color: AppColors.mediumGrey,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (_) => false,
-                    );
-                  },
-                  child: Text(
-                    'sign_in'.tr(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18.sp,
-                      color: AppColors.pinkRed,
-                    ),
-                  ),
-                ),
+                GestureDetector(onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen(),));
+                }, child: Text('sign_in'.tr(), style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
+                  color: AppColors.pinkRed,
+                ),)),
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,
-    required this.title,
-    required this.buttonBackgroundColor,
-    required this.testColor,
-    required this.onTap,
-  });
-
-  final String title;
-  final Color buttonBackgroundColor;
-  final Color testColor;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 450.w,
-        height: 55.h,
-        decoration: BoxDecoration(
-          color: buttonBackgroundColor,
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 21.sp,
-              fontWeight: FontWeight.w600,
-              color: testColor,
-            ),
-          ),
         ),
       ),
     );

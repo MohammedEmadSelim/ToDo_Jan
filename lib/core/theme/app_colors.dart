@@ -23,4 +23,10 @@ class AppColors {
 
   // ===== Background =====
   static const Color screenBackground = Color(0xFFA7AFBA);
+
+
+  // ===== testColors =====
+  static const Color textWhite = Color(0xFFffffff);
+
+
 }

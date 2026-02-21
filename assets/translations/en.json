@@ -6,7 +6,9 @@
   "password": "Password",
   "confirm_password": "Confirm Password",
   "sign_up": "SIGN UP",
-  "have_account": "Have an account?",
+  "have_account": "Have an account?","forgot_password": "Forgot Password?",
+  "dont_have_account": "Don't have an account?",
   "sign_in": "Sign in"
+
 
 }

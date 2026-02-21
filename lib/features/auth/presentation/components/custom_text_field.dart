@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
+class CustomTextFormField extends StatefulWidget {
+   CustomTextFormField({
     super.key,
     required this.hint,
-    required this.controller, this.obscureText = false,
+    required this.controller,
+    this.showPassord = false,
   });
 
   final String hint;
   final TextEditingController controller;
-  final bool? obscureText;
+  final bool? showPassord;
+
+  @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+   bool? obsecure = false;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      obscureText: obscureText!,
-      
+      controller: widget.controller,
+      obscureText: obsecure!,
+
       decoration: InputDecoration(
-        hintText: hint,
+        hintText: widget.hint,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide(color: AppColors.softGrey),
@@ -28,7 +36,18 @@ class CustomTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide(color: AppColors.softGrey),
         ),
-        suffixIcon: obscureText!? Icon(Icons.visibility_off):null
+        suffixIcon: widget.showPassord!
+            ? GestureDetector(
+            onTap: () {
+              obsecure = !obsecure!;
+              
+              setState(() {
+
+              });
+
+            }
+            , child: Icon(obsecure!?Icons.visibility_off:Icons.visibility))
+            : null,
       ),
     );
   }
