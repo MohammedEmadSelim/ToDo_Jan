@@ -2,30 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 
 class CustomTextFormField extends StatefulWidget {
-   CustomTextFormField({
+  CustomTextFormField({
     super.key,
     required this.hint,
     required this.controller,
     this.showPassord = false,
+    this.validator,
   });
 
   final String hint;
   final TextEditingController controller;
   final bool? showPassord;
+  final String? Function(String?)? validator;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-   bool? obsecure = false;
+  bool? obsecure = false;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
       obscureText: obsecure!,
-
+      validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hint,
         enabledBorder: OutlineInputBorder(
@@ -36,17 +38,25 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide(color: AppColors.softGrey),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24),
+          borderSide: BorderSide(color: AppColors.softGrey),
+        ),
         suffixIcon: widget.showPassord!
             ? GestureDetector(
-            onTap: () {
-              obsecure = !obsecure!;
-              
-              setState(() {
+                onTap: () {
+                  obsecure = !obsecure!;
 
-              });
-
-            }
-            , child: Icon(obsecure!?Icons.visibility_off:Icons.visibility))
+                  setState(() {});
+                },
+                child: Icon(
+                  obsecure! ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
             : null,
       ),
     );
