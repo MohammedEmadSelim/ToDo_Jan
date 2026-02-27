@@ -56,97 +56,110 @@ class RegisterScreen extends StatelessWidget {
         child: Form(
           key: formKey,
           child: Column(
-              children: [
+            children: [
               SizedBox(height: 90),
-          SvgPicture.asset('assets/images/Logo.svg'),
-          SizedBox(height: 12),
+              SvgPicture.asset('assets/images/Logo.svg'),
+              SizedBox(height: 12),
 
-          CustomTextFormField(
-            validator: (value) {
-            if(value ==null || value.isEmpty){
-              return "this field can\'t be empty";
-            }
-            if( !value.contains('@')||!value.contains('.com')){
-              return "please enter valid email ";
-            }
+              CustomTextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "this field can\'t be empty";
+                  }
+                  if (!value.contains('@') || !value.contains('.com')) {
+                    return "please enter valid email ";
+                  }
 
-            return null;
-            },
-            hint: "email".tr(),
-            controller: _emailController,
+                  return null;
+                },
+                hint: "email".tr(),
+                controller: _emailController,
+              ),
+              SizedBox(height: 12),
+
+              CustomTextFormField(
+
+                hint: "full_name".tr(),
+                controller: _fullNameController,
+              ),
+              SizedBox(height: 12),
+
+              CustomTextFormField(
+                hint: "password".tr(),
+                controller: _passwordController,
+                showPassord: true,
+              ),
+              SizedBox(height: 12),
+
+              CustomTextFormField(
+                hint: "confirm_password".tr(),
+                controller: _confirmPasswordController,
+                showPassord: true,
+              ),
+
+              SizedBox(height: 10.h),
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if(state is AuthRegisterSuccess){
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen(),), (_)=>false);
+                  }
+                },
+                builder: (context, state) {
+                  if(state is AuthRegisterLoading){
+                    return CircularProgressIndicator();
+                  }
+                  return CustomButton(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().createUser(
+                            _emailController.text,
+                            _passwordController.text,
+                            _fullNameController.text
+                        );
+                      }
+                    },
+                    title: 'sign_up'.tr(),
+                    buttonBackgroundColor: AppColors.pinkRed,
+                    testColor: AppColors.textWhite,
+                  );
+                },
+              ),
+              SizedBox(height: 21.h),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'have_account'.tr(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16.sp,
+                      color: AppColors.mediumGrey,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                            (_) => false,
+                      );
+                    },
+                    child: Text(
+                      'sign_in'.tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18.sp,
+                        color: AppColors.pinkRed,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          SizedBox(height: 12),
-
-          CustomTextFormField(
-
-              hint: "full_name".tr(),
-          controller: _fullNameController,
-        ),
-        SizedBox(height: 12),
-
-        CustomTextFormField(
-          hint: "password".tr(),
-          controller: _passwordController,
-          showPassord: true,
-        ),
-        SizedBox(height: 12),
-
-        CustomTextFormField(
-          hint: "confirm_password".tr(),
-          controller: _confirmPasswordController,
-          showPassord: true,
-        ),
-
-        SizedBox(height: 10.h),
-        CustomButton(
-          onTap: () {
-            if (!formKey.currentState!.validate()) {
-              context.read<AuthCubit>().createUser(
-                _emailController.text,
-                _passwordController.text,
-              );
-            }
-          },
-          title: 'sign_up'.tr(),
-          buttonBackgroundColor: AppColors.pinkRed,
-          testColor: AppColors.textWhite,
-        ),
-        SizedBox(height: 21.h),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'have_account'.tr(),
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
-                color: AppColors.mediumGrey,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (_) => false,
-                );
-              },
-              child: Text(
-                'sign_in'.tr(),
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18.sp,
-                  color: AppColors.pinkRed,
-                ),
-              ),
-            ),
-          ],
-        ),
-        ],
-      ),
-    ),)
-    ,
+        ),)
+      ,
     );
   }
 }

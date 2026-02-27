@@ -58,5 +58,3 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// add icon
-// add splash screen

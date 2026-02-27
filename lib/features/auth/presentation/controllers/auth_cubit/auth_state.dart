@@ -15,4 +15,16 @@ final class AuthRegisterSuccess extends AuthState {
 
   AuthRegisterSuccess(this.res);
 }
+//======================================================
+final class AuthLoginLoading extends AuthState {}
+final class AuthLoginFailure extends AuthState {
+  final String message;
+
+  AuthLoginFailure(this.message);
+}
+final class AuthLoginSuccess extends AuthState {
+  final User? res;
+
+  AuthLoginSuccess(this.res);
+}
 

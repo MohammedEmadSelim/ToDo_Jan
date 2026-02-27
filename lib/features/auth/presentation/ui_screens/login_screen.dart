@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_app/core/responsive/responive_extention.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/features/auth/presentation/components/custom_text_field.dart';
-import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart' show CustomButton, RegisterScreen;
+import 'package:todo_app/features/auth/presentation/controllers/auth_cubit/auth_cubit.dart';
+import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart'
+    show CustomButton, RegisterScreen;
 
 class LoginScreen extends StatefulWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -73,13 +76,33 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
 
-
             SizedBox(height: 10.h),
-            CustomButton(
-              onTap: () {},
-              title: 'sign_in'.tr(),
-              buttonBackgroundColor: AppColors.pinkRed,
-              testColor: AppColors.textWhite,
+            BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is AuthLoginSuccess) {
+                  Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => HomeScreen(),),(_)=>false);
+                }
+                if (state is AuthLoginFailure){
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text( state.message,style: TextStyle(
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red,
+                  ),)));
+                }
+              },
+              builder: (context, state) {
+                if(state is AuthLoginLoading){
+                  return CircularProgressIndicator();
+                }
+                return CustomButton(
+                  onTap: () {
+                    context.read<AuthCubit>().login(_emailController.text, _passwordController.text, 'name');
+                  },
+                  title: 'sign_in'.tr(),
+                  buttonBackgroundColor: AppColors.pinkRed,
+                  testColor: AppColors.textWhite,
+                );
+              },
             ),
             SizedBox(height: 21.h),
 
@@ -95,7 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 GestureDetector(onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen(),));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => RegisterScreen(),));
                 }, child: Text('sign_in'.tr(), style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18.sp,
@@ -107,5 +131,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+}
+
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
