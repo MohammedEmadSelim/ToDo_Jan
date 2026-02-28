@@ -28,5 +28,7 @@ class AppColors {
   // ===== testColors =====
   static const Color textWhite = Color(0xFFffffff);
 
+  // ===== icons colors =====
+  static const Color red = Color(0xffbf0603);
 
 }
