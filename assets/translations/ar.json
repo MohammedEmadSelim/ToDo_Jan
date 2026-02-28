@@ -10,5 +10,11 @@
   "sign_in": "تسجيل الدخول",
 
   "forgot_password": "هل نسيت كلمة المرور؟",
-  "dont_have_account": "ليس لديك حساب؟"
+  "dont_have_account": "ليس لديك حساب؟",
+  "title": "العنوان",
+  "description": "الوصف",
+  "deadline_optional": "الموعد النهائي (اختياري)",
+  "add_image_optional": "إضافة صورة (اختياري)",
+  "add_todo": "إضافة مهمة"
+
 }
