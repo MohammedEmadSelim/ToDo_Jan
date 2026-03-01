@@ -1,5 +1,4 @@
 {
-  "name": "تبارك",
   "locale" :"Ar",
   "email": "إيميل",
   "full_name": "الاسم الكامل",
@@ -15,6 +14,11 @@
   "description": "الوصف",
   "deadline_optional": "الموعد النهائي (اختياري)",
   "add_image_optional": "إضافة صورة (اختياري)",
-  "add_todo": "إضافة مهمة"
+  "add_todo": "إضافة مهمة",
+  "name": "الاسم",
+  "change_email": "تغيير البريد الإلكتروني",
+  "change_password": "تغيير كلمة المرور",
+  "change_language": "تغيير اللغة",
+  "logout": "تسجيل الخروج"
 
 }

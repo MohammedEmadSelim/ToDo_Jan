@@ -6,8 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:todo_app/core/responsive/responive_extention.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 
-
-class ToDoReadOnlyTextField extends StatelessWidget {
+class ToDoReadOnlyTextField extends StatefulWidget {
   ToDoReadOnlyTextField({
     super.key,
     required this.title,
@@ -23,15 +22,20 @@ class ToDoReadOnlyTextField extends StatelessWidget {
   void Function()? onTap;
 
   @override
+  State<ToDoReadOnlyTextField> createState() => _ToDoReadOnlyTextFieldState();
+}
+
+class _ToDoReadOnlyTextFieldState extends State<ToDoReadOnlyTextField> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
       style: TextStyle(color: AppColors.textWhite),
-      onTap: onTap,
+      onTap: widget.onTap,
       readOnly: true,
-      controller: controller,
+      controller: widget.controller,
       decoration: InputDecoration(
-        suffixIcon: icon,
-        hintText: title,
+        suffixIcon: widget.icon,
+        hintText: widget.title,
         hintStyle: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 21.sp,

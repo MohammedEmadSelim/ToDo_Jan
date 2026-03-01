@@ -1,5 +1,4 @@
 {
-  "name": "Tabark",
   "locale" :"Eng",
   "email": "Email",
   "full_name": "Full Name",
@@ -13,7 +12,12 @@
   "description": "Description",
   "deadline_optional": "Deadline (Optional)",
   "add_image_optional": "Add Image (Optional)",
-  "add_todo": "ADD TODO"
+  "add_todo": "ADD TODO",
+  "name": "Name",
+  "change_email": "Change Email",
+  "change_password": "Change Password",
+  "change_language": "Change Language",
+  "logout": "Log Out"
 
 
 

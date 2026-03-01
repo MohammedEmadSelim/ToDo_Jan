@@ -25,6 +25,7 @@ class ToDoCustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: AppColors.textWhite),
       validator: validator,
       controller: controller,
       maxLines: maxLines,
