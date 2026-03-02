@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todo_app/core/responsive/responive_extention.dart';
 import 'package:todo_app/core/theme/app_colors.dart';
 import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart';
@@ -72,6 +74,12 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           if (state is HomeGetTodosSuccess) {
             var todos = state.todos;
+            if (todos.isEmpty) {
+              return Center(
+                child: Lottie.asset('assets/animations/History.json'),
+              );
+            }
+
             return ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 80.h),
               itemBuilder: (context, index) {
@@ -97,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.pinkRed,
         onPressed: () {
+          /// FirebaseAuth.instance.signOut();
           showModalBottomSheet(
             backgroundColor: AppColors.softPink,
             isScrollControlled: true,

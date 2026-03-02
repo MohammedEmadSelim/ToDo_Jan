@@ -8,6 +8,7 @@ import 'package:todo_app/features/auth/presentation/components/custom_text_field
 import 'package:todo_app/features/auth/presentation/controllers/auth_cubit/auth_cubit.dart';
 import 'package:todo_app/features/auth/presentation/ui_screens/register_screen.dart'
     show CustomButton, RegisterScreen;
+import 'package:todo_app/features/home_screen/presentation/conrollers/home_cubit/home_cubit.dart';
 import 'package:todo_app/features/home_screen/presentation/ui_screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -81,8 +82,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (state is AuthLoginSuccess) {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                    (_) => false,
+                    MaterialPageRoute(builder: (context) =>
+                        BlocProvider(
+                          create: (context) => HomeCubit(),                          child: HomeScreen(),
+                        )),
+                        (_) => false,
                   );
                 }
                 if (state is AuthLoginFailure) {
@@ -139,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                   child: Text(
-                    'sign_in'.tr(),
+                    'sign_up'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18.sp,
