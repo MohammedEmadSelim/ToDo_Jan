@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/core/bloc_observer/bloc_observe.dart';
 import 'package:todo_app/features/auth/presentation/controllers/auth_cubit/auth_cubit.dart';
 import 'package:todo_app/features/auth/presentation/ui_screens/login_screen.dart';
+import 'package:todo_app/features/home_screen/presentation/conrollers/home_cubit/home_cubit.dart';
 import 'package:todo_app/features/splash_screen/presentation/ui_screens/splach_screen.dart';
 
 void main() async {
@@ -30,8 +31,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
+          create: (context) => HomeCubit(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: context.localizationDelegates,

@@ -3,14 +3,16 @@ import 'dart:io' as io;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_either/dart_either.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:todo_app/features/home_screen/data/models/todo_model.dart';
 import 'package:todo_app/features/home_screen/data/models/todo_param.dart';
 
 class HomeRemoteDataSource {
+  var user = FirebaseAuth.instance.currentUser;
+
   Future<String> createTodo(TodoParam todo) async {
-    var user = FirebaseAuth.instance.currentUser;
     var imageUrl;
     try {
       if (todo.image != null) {
@@ -52,11 +54,24 @@ class HomeRemoteDataSource {
           .collection(use!.uid)
           .get();
       var todos = response.docs.map((e) {
-        return TodoModel.fromJson(e.data(), "");
+        return TodoModel.fromJson(e.data(), e.id);
       }).toList();
       return Right(todos);
     } catch (e) {
       return Left(e.toString());
+    }
+  }
+
+  Future<String> deleteTodo(String todoId) async {
+    try {
+      var res = FirebaseFirestore.instance
+          .collection(user!.uid)
+          .doc(todoId)
+          .delete();
+
+      return "200";
+    } catch (e) {
+      return e.toString();
     }
   }
 }

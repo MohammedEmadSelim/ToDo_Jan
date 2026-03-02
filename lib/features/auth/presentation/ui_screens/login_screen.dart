@@ -82,11 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (state is AuthLoginSuccess) {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) =>
-                        BlocProvider(
-                          create: (context) => HomeCubit(),                          child: HomeScreen(),
-                        )),
-                        (_) => false,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                    (_) => false,
                   );
                 }
                 if (state is AuthLoginFailure) {

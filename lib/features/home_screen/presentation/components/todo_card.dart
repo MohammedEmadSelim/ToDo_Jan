@@ -45,16 +45,20 @@ class TodoCart extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24.h),
-            Text(
-              todo.des,
-              maxLines: 4,
-              style: TextStyle(
-                color: AppColors.textWhite,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.sp,
+            Expanded(
+              child: Text(
+                todo.des,
+                maxLines: 4,
+                style: TextStyle(
+
+                  color: AppColors.textWhite,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
+                  overflow: TextOverflow.ellipsis
+                ),
               ),
             ),
-            Spacer(),
+
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 21.w,vertical: 10.h),
               child: Row(

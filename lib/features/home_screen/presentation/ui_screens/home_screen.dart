@@ -124,6 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
             desController.clear();
             deadLineController.clear();
             imageController.clear();
+            context.read<HomeCubit>().getTodo();
           });
         },
         child: Icon(Icons.add, size: 32.h, color: AppColors.textWhite),

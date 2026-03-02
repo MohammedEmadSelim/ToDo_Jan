@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:todo_app/features/home_screen/data/models/todo_model.dart';
 import 'package:todo_app/features/home_screen/data/models/todo_param.dart';
 import 'package:todo_app/features/home_screen/domain/use_cases/create_todo_use_case.dart';
+import 'package:todo_app/features/home_screen/domain/use_cases/delete_todo.dart';
 import 'package:todo_app/features/home_screen/domain/use_cases/get_todo_use_case.dart';
 
 part 'home_state.dart';
@@ -37,5 +38,17 @@ class HomeCubit extends Cubit<HomeState> {
         emit(HomeGetTodosSuccess(todos));
       },
     );
+  }
+
+  Future<void> deleteTodo(String todoId) async {
+    emit(HomeDeleteTodoLoading());
+
+    var res = await DeleteTodoUseCase().deleteTodo(todoId);
+
+    if (res == "200") {
+      emit(HomeDeleteTodoSuccess());
+    } else {
+      emit(HomeDeleteTodoFailure(res));
+    }
   }
 }

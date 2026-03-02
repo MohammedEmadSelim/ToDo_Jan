@@ -17,7 +17,11 @@
   "change_email": "Change Email",
   "change_password": "Change Password",
   "change_language": "Change Language",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "delete_todo": "Delete Todo",
+  "delete": "Delete",
+  "delete_todo_message": "This action will permanently delete this todo and all associated images. This cannot be undone.",
+  "cancel":"Cancel"
 
 
 

@@ -29,3 +29,13 @@ final class HomeGetTodosSuccess extends HomeState {
 
   HomeGetTodosSuccess(this.todos);
 }
+// /===================
+final class HomeDeleteTodoLoading extends HomeState {}
+
+final class HomeDeleteTodoFailure extends HomeState {
+  final String message;
+
+  HomeDeleteTodoFailure(this.message);
+}
+
+final class HomeDeleteTodoSuccess extends HomeState {}
